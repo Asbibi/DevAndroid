@@ -9,3 +9,7 @@ w
 Gapp/src/main/java/com/andrealouis/devmobile/tasklist/TaskListAdapter.kt,e\3\e3aaff989583cc9d14105ad61c4d78b3e3cc2633
 x
 Happ/src/main/java/com/andrealouis/devmobile/tasklist/TaskListFragment.kt,0\4\0481cd7a0ff3dc560a8a724d3f78fc02b63cab01
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+p
+@app/src/main/java/com/andrealouis/devmobile/task/TaskActivity.kt,3\1\31778d25aa51e7889d7219924fb46ca9d1ac6c80
