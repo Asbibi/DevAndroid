@@ -10,6 +10,7 @@ import com.andrealouis.devmobile.R
 
 class TaskListAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
 
+    var onEditClickListener: ((Task) -> Unit)? = null
     var onDeleteClickListener: ((Task) -> Unit)? = null
 
 
@@ -18,7 +19,11 @@ class TaskListAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<T
             itemView.apply { // `apply {}` permet d'éviter de répéter `itemView.*`
                 var textView = itemView.findViewById<TextView>(R.id.task_title)
                 textView.text = task.title
-                val deleteButton = itemView.findViewById<ImageButton>(R.id.imageButton)
+                val editButton = itemView.findViewById<ImageButton>(R.id.imageButtonTaskEdit)
+                editButton.setOnClickListener{
+                    onEditClickListener?.invoke(task)
+                }
+                val deleteButton = itemView.findViewById<ImageButton>(R.id.imageButtonTaskDelete)
                 deleteButton.setOnClickListener{
                     onDeleteClickListener?.invoke(task)
                 }
