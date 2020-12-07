@@ -13,3 +13,9 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 p
 @app/src/main/java/com/andrealouis/devmobile/task/TaskActivity.kt,3\1\31778d25aa51e7889d7219924fb46ca9d1ac6c80
+r
+Bapp/src/main/java/com/andrealouis/devmobile/network/UserService.kt,0\f\0f50229741ca9b0d20784cb19500d6a23c787c54
+j
+:app/src/main/java/com/andrealouis/devmobile/network/API.kt,8\8\887bf79c7012bf787ce5f3dd36275af4f9c9072c
+o
+?app/src/main/java/com/andrealouis/devmobile/network/UserInfo.kt,c\e\ce9463ad4f2f91c1d6597d470f70ee66c24dd6b2

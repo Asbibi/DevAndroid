@@ -5,13 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andrealouis.devmobile.R
+import com.andrealouis.devmobile.network.Api
 import com.andrealouis.devmobile.task.TaskActivity
 import com.andrealouis.devmobile.task.TaskActivity.Companion.ADD_TASK_REQUEST_CODE
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.launch
 
 class TaskListFragment : Fragment() {
 
@@ -64,4 +68,14 @@ class TaskListFragment : Fragment() {
         taskList.add(taskList.size, task)
         taskListAdapter.notifyItemInserted(taskList.size)
     }
+
+    override fun onResume(){
+        super.onResume()
+        lifecycleScope.launch {
+            val userInfo = Api.userService.getInfo().body()!!
+            val my_text_view = view?.findViewById<TextView>(R.id.userInfo_textView)
+            my_text_view?.text = "${userInfo.firstName} ${userInfo.lastName}"
+        }
+    }
+
 }

@@ -43,4 +43,6 @@ class TaskListAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<T
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         holder.bind(taskList[position])
     }
+
+
 }
