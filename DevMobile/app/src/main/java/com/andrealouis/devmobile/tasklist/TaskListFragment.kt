@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andrealouis.devmobile.R
 import com.andrealouis.devmobile.network.Api
+import com.andrealouis.devmobile.network.TasksRepository
 import com.andrealouis.devmobile.task.TaskActivity
 import com.andrealouis.devmobile.task.TaskActivity.Companion.ADD_TASK_REQUEST_CODE
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,7 +27,9 @@ class TaskListFragment : Fragment() {
         Task(id = "id_2", title = "Task 2"),
         Task(id = "id_3", title = "Task 3")
     )
-    val taskListAdapter = TaskListAdapter(taskList)
+    val taskListAdapter = TaskListAdapter()
+    private val tasksRepository = TasksRepository()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +64,11 @@ class TaskListFragment : Fragment() {
             val intent = Intent(activity, TaskActivity::class.java)
             startActivityForResult(intent, ADD_TASK_REQUEST_CODE)
         }
+        tasksRepository.taskList.observe(viewLifecycleOwner, Observer {
+            taskListAdapter.taskList.clear()
+            taskListAdapter.taskList.addAll(it)
+            taskListAdapter.notifyDataSetChanged()
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -75,7 +84,8 @@ class TaskListFragment : Fragment() {
             val userInfo = Api.userService.getInfo().body()!!
             val my_text_view = view?.findViewById<TextView>(R.id.userInfo_textView)
             my_text_view?.text = "${userInfo.firstName} ${userInfo.lastName}"
+            tasksRepository.refresh()
         }
     }
-
 }
+

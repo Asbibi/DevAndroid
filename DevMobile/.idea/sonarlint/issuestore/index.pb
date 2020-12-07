@@ -19,3 +19,9 @@ j
 :app/src/main/java/com/andrealouis/devmobile/network/API.kt,8\8\887bf79c7012bf787ce5f3dd36275af4f9c9072c
 o
 ?app/src/main/java/com/andrealouis/devmobile/network/UserInfo.kt,c\e\ce9463ad4f2f91c1d6597d470f70ee66c24dd6b2
+<
+build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
+u
+Eapp/src/main/java/com/andrealouis/devmobile/network/TaskWebService.kt,9\8\98a728db7117dbad9da259e83c018d35ee88dff2
+v
+Fapp/src/main/java/com/andrealouis/devmobile/network/TasksRepository.kt,9\f\9f393c1650ccda4b790216f95436520862e0b670

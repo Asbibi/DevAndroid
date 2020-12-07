@@ -8,10 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andrealouis.devmobile.R
 
-class TaskListAdapter(private val taskList: List<Task>) : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
+class TaskListAdapter () : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
 
     var onEditClickListener: ((Task) -> Unit)? = null
     var onDeleteClickListener: ((Task) -> Unit)? = null
+    val taskList = mutableListOf<Task>()//: mutableListOf<Task>
 
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
