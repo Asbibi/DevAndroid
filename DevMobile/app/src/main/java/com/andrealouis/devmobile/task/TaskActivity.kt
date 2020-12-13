@@ -10,6 +10,7 @@ import java.util.*
 
 class TaskActivity : AppCompatActivity() {
     companion object {
+        const val EDIT_TASK_REQUEST_CODE = 667
         const val ADD_TASK_REQUEST_CODE = 666
         const val TASK_KEY = "newTask"
     }
@@ -31,8 +32,10 @@ class TaskActivity : AppCompatActivity() {
             val newTask = Task(id = taskModified?.id ?: UUID.randomUUID().toString(),
                     title = title,
                     description = description)
+
             intent.putExtra(Companion.TASK_KEY, newTask)
             setResult(RESULT_OK, intent)
+
             finish()
             //val task = Task(id = UUID.randomUUID().toString(), title = "Task ${taskList.size + 1}")
             //taskList.add(taskList.size, task)

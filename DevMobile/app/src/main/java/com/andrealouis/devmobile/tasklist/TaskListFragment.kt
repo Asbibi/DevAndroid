@@ -16,6 +16,7 @@ import com.andrealouis.devmobile.network.Api
 import com.andrealouis.devmobile.network.TasksRepository
 import com.andrealouis.devmobile.task.TaskActivity
 import com.andrealouis.devmobile.task.TaskActivity.Companion.ADD_TASK_REQUEST_CODE
+import com.andrealouis.devmobile.task.TaskActivity.Companion.EDIT_TASK_REQUEST_CODE
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.launch
 
@@ -28,7 +29,8 @@ class TaskListFragment : Fragment() {
         Task(id = "id_3", title = "Task 3")
     )
     val taskListAdapter = TaskListAdapter()
-    private val tasksRepository = TasksRepository()
+    //private val tasksRepository = TasksRepository()
+    private val TaskListViewModel = com.andrealouis.devmobile.tasklist.TaskListViewModel()
 
 
     override fun onCreateView(
@@ -48,15 +50,16 @@ class TaskListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         taskListAdapter.onEditClickListener = { task ->
-            //taskListAdapter.notifyItemRemoved(taskList.indexOf(task))
-            //taskList.remove(task)
+            /*taskListAdapter.notifyItemRemoved(taskList.indexOf(task))
+            taskList.remove(task)*/
             val intent = Intent(activity, TaskActivity::class.java)
             intent.putExtra(TaskActivity.TASK_KEY, task)
-            startActivityForResult(intent, ADD_TASK_REQUEST_CODE)
+            startActivityForResult(intent, EDIT_TASK_REQUEST_CODE)
         }
         taskListAdapter.onDeleteClickListener = { task ->
-            taskListAdapter.notifyItemRemoved(taskList.indexOf(task))
-            taskList.remove(task)
+            //taskListAdapter.notifyItemRemoved(taskList.indexOf(task))
+            //taskList.remove(task)
+            lifecycleScope.launch { TaskListViewModel.deleteTask(task)}//tasksRepository.deleteTask(task) }
         }
         recyclerView.adapter = taskListAdapter
         val button = view.findViewById<FloatingActionButton>(R.id.button)
@@ -73,9 +76,12 @@ class TaskListFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
-        // TODO : Chercher si la tache existe déjà (cad on renvoie une tache modifiée ou on en crée une nouvelle
-        taskList.add(taskList.size, task)
-        taskListAdapter.notifyItemInserted(taskList.size)
+        if (requestCode == ADD_TASK_REQUEST_CODE)
+            lifecycleScope.launch { tasksRepository.createTask(task!!) }
+        else if (requestCode == EDIT_TASK_REQUEST_CODE)
+            lifecycleScope.launch { tasksRepository.updateTask(task) }
+        //taskList.add(taskList.size, task)
+        //taskListAdapter.notifyItemInserted(taskList.size)
     }
 
     override fun onResume(){
