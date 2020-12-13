@@ -25,3 +25,5 @@ u
 Eapp/src/main/java/com/andrealouis/devmobile/network/TaskWebService.kt,9\8\98a728db7117dbad9da259e83c018d35ee88dff2
 v
 Fapp/src/main/java/com/andrealouis/devmobile/network/TasksRepository.kt,9\f\9f393c1650ccda4b790216f95436520862e0b670
+y
+Iapp/src/main/java/com/andrealouis/devmobile/tasklist/TaskListViewModel.kt,b\4\b4cc741bced99227ec1d9bea16ef5f4106dd6db9
