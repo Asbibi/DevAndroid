@@ -7,13 +7,18 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andrealouis.devmobile.R
+import kotlin.properties.Delegates
 
 class TaskListAdapter () : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
 
     var onEditClickListener: ((Task) -> Unit)? = null
     var onDeleteClickListener: ((Task) -> Unit)? = null
-    val taskList = mutableListOf<Task>()//: mutableListOf<Task>
+    // val taskList: LiveData<List<Task>> = _taskList
 
+    //var taskList: List<Task> = emptyList() // = mutableListOf<Task>()
+    var taskList: List<Task> by Delegates.observable(emptyList()) { _, _, _ ->
+        notifyDataSetChanged()
+    }
 
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(task: Task) {

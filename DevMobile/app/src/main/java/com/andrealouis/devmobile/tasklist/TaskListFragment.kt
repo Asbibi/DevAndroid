@@ -5,20 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andrealouis.devmobile.R
-import com.andrealouis.devmobile.network.Api
-import com.andrealouis.devmobile.network.TasksRepository
 import com.andrealouis.devmobile.task.TaskActivity
 import com.andrealouis.devmobile.task.TaskActivity.Companion.ADD_TASK_REQUEST_CODE
 import com.andrealouis.devmobile.task.TaskActivity.Companion.EDIT_TASK_REQUEST_CODE
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.launch
 
 class TaskListFragment : Fragment() {
 
@@ -30,7 +26,7 @@ class TaskListFragment : Fragment() {
     )
     val taskListAdapter = TaskListAdapter()
     //private val tasksRepository = TasksRepository()
-    private val TaskListViewModel = com.andrealouis.devmobile.tasklist.TaskListViewModel()
+    private val viewModel : TaskListViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -59,7 +55,8 @@ class TaskListFragment : Fragment() {
         taskListAdapter.onDeleteClickListener = { task ->
             //taskListAdapter.notifyItemRemoved(taskList.indexOf(task))
             //taskList.remove(task)
-            lifecycleScope.launch { TaskListViewModel.deleteTask(task)}//tasksRepository.deleteTask(task) }
+            viewModel.deleteTask(task)
+            //lifecycleScope.launch { tasksRepository.deleteTask(task)}
         }
         recyclerView.adapter = taskListAdapter
         val button = view.findViewById<FloatingActionButton>(R.id.button)
@@ -67,31 +64,38 @@ class TaskListFragment : Fragment() {
             val intent = Intent(activity, TaskActivity::class.java)
             startActivityForResult(intent, ADD_TASK_REQUEST_CODE)
         }
-        tasksRepository.taskList.observe(viewLifecycleOwner, Observer {
+        viewModel.taskList.observe(viewLifecycleOwner, Observer { newList ->
+            taskListAdapter.taskList = newList.orEmpty()
+            //taskListAdapter.notifyDataSetChanged()
+        })
+        /*tasksRepository.taskList.observe(viewLifecycleOwner, Observer {
             taskListAdapter.taskList.clear()
             taskListAdapter.taskList.addAll(it)
             taskListAdapter.notifyDataSetChanged()
-        })
+        })*/
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
         if (requestCode == ADD_TASK_REQUEST_CODE)
-            lifecycleScope.launch { tasksRepository.createTask(task!!) }
+            viewModel.addTask(task)
+            //lifecycleScope.launch { tasksRepository.addTask(task!!)}
         else if (requestCode == EDIT_TASK_REQUEST_CODE)
-            lifecycleScope.launch { tasksRepository.updateTask(task) }
+            viewModel.editTask(task)
+            //lifecycleScope.launch { tasksRepository.editTask(task!!)}
         //taskList.add(taskList.size, task)
         //taskListAdapter.notifyItemInserted(taskList.size)
     }
 
     override fun onResume(){
         super.onResume()
-        lifecycleScope.launch {
+        viewModel.loadTasks()
+        /*lifecycleScope.launch {
             val userInfo = Api.userService.getInfo().body()!!
             val my_text_view = view?.findViewById<TextView>(R.id.userInfo_textView)
             my_text_view?.text = "${userInfo.firstName} ${userInfo.lastName}"
-            tasksRepository.refresh()
-        }
+            //tasksRepository.refresh()
+        }*/
     }
 }
 

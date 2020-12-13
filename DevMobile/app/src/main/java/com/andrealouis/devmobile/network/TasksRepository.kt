@@ -1,6 +1,5 @@
 package com.andrealouis.devmobile.network
 
-import androidx.lifecycle.MutableLiveData
 import com.andrealouis.devmobile.tasklist.Task
 
 class TasksRepository {
@@ -12,6 +11,8 @@ class TasksRepository {
         // [taskList] est publique mais non-modifiable:
         // On pourra seulement l'observer (s'y abonner) depuis d'autres classes
     //public val taskList: LiveData<List<Task>> = _taskList
+
+
 
     suspend fun refresh(): List<Task>? {
         val response = tasksWebService.getTasks()
@@ -40,26 +41,31 @@ class TasksRepository {
         }*/
     }
 
-    suspend fun createTask(task: Task) {
+    suspend fun createTask(task: Task) : Task? {
         val createdTask = tasksWebService.createTask(task)
+        return if (createdTask.isSuccessful) createdTask.body() else null
+        /*val createdTask = tasksWebService.createTask(task)
         if (createdTask.isSuccessful) {
             val editableList = _taskList.value.orEmpty().toMutableList()
-            if (createdTask.body() == null)
+            /*if (createdTask.body() == null)
                 editableList.add(Task("1","NULL","c'est trop nul"))
             else
-                editableList.add(createdTask.body()!!)
+                */
+            editableList.add(createdTask.body()!!)
             _taskList.value = editableList
-        }
+        }*/
     }
 
-    suspend fun updateTask(task: Task) {
+    suspend fun updateTask(task: Task) : Task? {
         val editedTask = tasksWebService.updateTask(task)
+        return if (editedTask.isSuccessful) editedTask.body() else null
+        /*val editedTask = tasksWebService.updateTask(task)
         if (editedTask.isSuccessful) {
             val editableList = _taskList.value.orEmpty().toMutableList()
             val position = editableList.indexOfFirst { task.id == it.id }
             editableList[position] = editedTask.body()!!
             _taskList.value = editableList
-        }
+        }*/
     }
 
 
