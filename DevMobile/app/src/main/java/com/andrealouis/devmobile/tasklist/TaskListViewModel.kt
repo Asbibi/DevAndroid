@@ -1,12 +1,9 @@
 package com.andrealouis.devmobile.tasklist
 
-import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andrealouis.devmobile.R
-import com.andrealouis.devmobile.network.Api
 import com.andrealouis.devmobile.network.TasksRepository
 import kotlinx.coroutines.launch
 
@@ -18,10 +15,6 @@ class TaskListViewModel : ViewModel() {
 
     fun loadTasks() {
         viewModelScope.launch {
-            val userInfo = Api.userService.getInfo().body()!!
-            val my_text_view = view?.findViewById<TextView>(R.id.userInfo_textView)
-            my_text_view?.text = "${userInfo.firstName} ${userInfo.lastName}"
-
             val fetchedTasks = repository.refresh()
             if (fetchedTasks != null)
             // on modifie la valeur encapsulée, ce qui va notifier ses Observers et donc déclencher leur callback

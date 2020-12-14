@@ -5,12 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.andrealouis.devmobile.R
+import com.andrealouis.devmobile.network.UserInfoViewModel
 import com.andrealouis.devmobile.task.TaskActivity
 import com.andrealouis.devmobile.task.TaskActivity.Companion.ADD_TASK_REQUEST_CODE
 import com.andrealouis.devmobile.task.TaskActivity.Companion.EDIT_TASK_REQUEST_CODE
@@ -27,6 +32,7 @@ class TaskListFragment : Fragment() {
     val taskListAdapter = TaskListAdapter()
     //private val tasksRepository = TasksRepository()
     private val viewModel : TaskListViewModel by viewModels()
+    private val userInfoViewModel : UserInfoViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -89,13 +95,21 @@ class TaskListFragment : Fragment() {
 
     override fun onResume(){
         super.onResume()
-        viewModel.loadTasks()
+        // TODO : Demander comment faire pour plus avoir "null null"
+        userInfoViewModel.loadUserInfo()
+        val userInfo = userInfoViewModel.userInfo.value
         /*lifecycleScope.launch {
             val userInfo = Api.userService.getInfo().body()!!
-            val my_text_view = view?.findViewById<TextView>(R.id.userInfo_textView)
-            my_text_view?.text = "${userInfo.firstName} ${userInfo.lastName}"
+        */
+        val my_text_view = view?.findViewById<TextView>(R.id.userInfo_textView)
+        val myImageView = view?.findViewById<ImageView>(R.id.userInfo_imageView)
+        my_text_view?.text = "${userInfo?.firstName} ${userInfo?.lastName}"
+        myImageView?.load("https://goo.gl/gEgYUd"){
+            transformations(CircleCropTransformation())
+        }
             //tasksRepository.refresh()
-        }*/
+        //}
+        viewModel.loadTasks()
     }
 }
 
