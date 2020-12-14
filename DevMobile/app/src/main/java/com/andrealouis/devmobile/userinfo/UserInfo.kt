@@ -1,7 +1,7 @@
-package com.andrealouis.devmobile.network
+package com.andrealouis.devmobile.userinfo
 
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 
 @Serializable
@@ -11,5 +11,7 @@ data class UserInfo(
         @SerialName("firstname")
         val firstName: String,
         @SerialName("lastname")
-        val lastName: String
+        val lastName: String,
+        @SerialName("avatar")
+        val avatar: String = "https://goo.gl/gEgYUd"
 )

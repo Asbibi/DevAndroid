@@ -1,4 +1,4 @@
-package com.andrealouis.devmobile.tasklist
+package com.andrealouis.devmobile.task
 
 
 import kotlinx.serialization.SerialName

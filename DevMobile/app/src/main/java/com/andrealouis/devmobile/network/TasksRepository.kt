@@ -1,6 +1,6 @@
 package com.andrealouis.devmobile.network
 
-import com.andrealouis.devmobile.tasklist.Task
+import com.andrealouis.devmobile.task.Task
 
 class TasksRepository {
     private val tasksWebService = Api.tasksWebService

@@ -7,6 +7,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.andrealouis.devmobile.R
+import com.andrealouis.devmobile.task.Task
 import kotlin.properties.Delegates
 
 class TaskListAdapter () : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {

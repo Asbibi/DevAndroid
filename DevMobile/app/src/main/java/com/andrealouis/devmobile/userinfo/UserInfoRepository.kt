@@ -1,4 +1,6 @@
-package com.andrealouis.devmobile.network
+package com.andrealouis.devmobile.userinfo
+
+import com.andrealouis.devmobile.network.Api
 
 class UserInfoRepository {
 

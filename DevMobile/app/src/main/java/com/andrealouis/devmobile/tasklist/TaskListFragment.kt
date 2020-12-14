@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.andrealouis.devmobile.R
-import com.andrealouis.devmobile.network.UserInfoViewModel
+import com.andrealouis.devmobile.task.Task
 import com.andrealouis.devmobile.task.TaskActivity
 import com.andrealouis.devmobile.task.TaskActivity.Companion.ADD_TASK_REQUEST_CODE
 import com.andrealouis.devmobile.task.TaskActivity.Companion.EDIT_TASK_REQUEST_CODE
+import com.andrealouis.devmobile.userinfo.UserInfoActivity
+import com.andrealouis.devmobile.userinfo.UserInfoViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class TaskListFragment : Fragment() {
@@ -74,6 +76,11 @@ class TaskListFragment : Fragment() {
             taskListAdapter.taskList = newList.orEmpty()
             //taskListAdapter.notifyDataSetChanged()
         })
+        val userImageView = view?.findViewById<ImageView>(R.id.userInfo_imageView)
+        userImageView.setOnClickListener {
+            val intent = Intent(activity, UserInfoActivity::class.java)
+            startActivity(intent)
+        }
         /*tasksRepository.taskList.observe(viewLifecycleOwner, Observer {
             taskListAdapter.taskList.clear()
             taskListAdapter.taskList.addAll(it)
@@ -95,20 +102,16 @@ class TaskListFragment : Fragment() {
 
     override fun onResume(){
         super.onResume()
-        // TODO : Demander comment faire pour plus avoir "null null"
         userInfoViewModel.loadUserInfo()
-        val userInfo = userInfoViewModel.userInfo.value
-        /*lifecycleScope.launch {
-            val userInfo = Api.userService.getInfo().body()!!
-        */
-        val my_text_view = view?.findViewById<TextView>(R.id.userInfo_textView)
-        val myImageView = view?.findViewById<ImageView>(R.id.userInfo_imageView)
-        my_text_view?.text = "${userInfo?.firstName} ${userInfo?.lastName}"
-        myImageView?.load("https://goo.gl/gEgYUd"){
-            transformations(CircleCropTransformation())
-        }
-            //tasksRepository.refresh()
-        //}
+        userInfoViewModel.userInfo.observe(viewLifecycleOwner, Observer { newInfo ->
+            val userInfo = newInfo
+            val my_text_view = view?.findViewById<TextView>(R.id.userInfo_textView)
+            val myImageView = view?.findViewById<ImageView>(R.id.userInfo_imageView)
+            my_text_view?.text = "${userInfo?.firstName} ${userInfo?.lastName}"
+            myImageView?.load(userInfo?.avatar) {    //"https://goo.gl/gEgYUd"
+                transformations(CircleCropTransformation())
+            }
+        })
         viewModel.loadTasks()
     }
 }

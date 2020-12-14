@@ -1,4 +1,4 @@
-package com.andrealouis.devmobile.network
+package com.andrealouis.devmobile.userinfo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

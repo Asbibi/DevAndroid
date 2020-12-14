@@ -27,3 +27,13 @@ v
 Fapp/src/main/java/com/andrealouis/devmobile/network/TasksRepository.kt,9\f\9f393c1650ccda4b790216f95436520862e0b670
 y
 Iapp/src/main/java/com/andrealouis/devmobile/tasklist/TaskListViewModel.kt,b\4\b4cc741bced99227ec1d9bea16ef5f4106dd6db9
+y
+Iapp/src/main/java/com/andrealouis/devmobile/userinfo/UserInfoViewModel.kt,7\6\7650cdfce721cfd2539d0378f0fd5121453fa3a2
+z
+Japp/src/main/java/com/andrealouis/devmobile/userinfo/UserInfoRepository.kt,d\1\d1813dc8cfcff621dc2dd6bafe7272fa2084f136
+h
+8app/src/main/java/com/andrealouis/devmobile/task/Task.kt,e\3\e3833c00585c0783837c60e37612b5ffdc2c6ff4
+p
+@app/src/main/java/com/andrealouis/devmobile/userinfo/UserInfo.kt,f\e\fed06896079a8422285f5e9f0ab32f1a87a792b0
+x
+Happ/src/main/java/com/andrealouis/devmobile/userinfo/UserInfoActivity.kt,3\a\3a7f5b381d4958ba3cab43844e86f329bdeb1e0c

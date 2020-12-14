@@ -1,7 +1,8 @@
 
-Bkotlin:S1251"Remove this commented out code.(‡Ìšøøÿÿÿÿ8šÊåå.
-=kotlin:S1258"Remove this commented out code.(îŞã¥8á¤„éå.
-=kotlin:S125"Remove this commented out code.(çüÃê8Ş´ÿçå.
-=kotlin:S125U"Remove this commented out code.(Š§é®8èä‚éå.
-Bkotlin:S125'"Remove this commented out code.(„êÎ›ûÿÿÿÿ8Î‡å«ß.
-Bkotlin:S125"Remove this commented out code.(À‰­úÿÿÿÿ8›½»®ß.
+Bkotlin:S1259"Remove this commented out code.(‡Ìšøøÿÿÿÿ8šÊåå.
+Bkotlin:S125"Remove this commented out code.(À‰­úÿÿÿÿ8›½»®ß.
+Bkotlin:S125/"Remove this commented out code.(„êÎ›ûÿÿÿÿ8Î‡å«ß.
+=kotlin:S125#"Remove this commented out code.(çüÃê8Ş´ÿçå.
+=kotlin:S125b"Remove this commented out code.(Š§é®8èä‚éå.
+pkotlin:S117l"RRename this local variable to match the regular expression "^[_a-z][a-zA-Z0-9]*$".(ÂÅŞ8¼ëŠˆæ.
+=kotlin:S125@"Remove this commented out code.(îŞã¥8á¤„éå.

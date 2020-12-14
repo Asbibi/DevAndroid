@@ -5,7 +5,6 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.andrealouis.devmobile.R
-import com.andrealouis.devmobile.tasklist.Task
 import java.util.*
 
 class TaskActivity : AppCompatActivity() {

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andrealouis.devmobile.network.TasksRepository
+import com.andrealouis.devmobile.task.Task
 import kotlinx.coroutines.launch
 
 class TaskListViewModel : ViewModel() {

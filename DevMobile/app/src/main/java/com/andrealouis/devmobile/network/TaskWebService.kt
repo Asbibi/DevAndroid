@@ -1,6 +1,6 @@
 package com.andrealouis.devmobile.network
 
-import com.andrealouis.devmobile.tasklist.Task
+import com.andrealouis.devmobile.task.Task
 import retrofit2.Response
 import retrofit2.http.*
 
