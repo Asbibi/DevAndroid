@@ -9,4 +9,9 @@ class UserInfoRepository {
         return if (userInfo.isSuccessful) userInfo.body() else null
     }
 
+    suspend fun update(userInfo: UserInfo) : UserInfo? {
+        val editedUserInfo = Api.userService.update(userInfo)
+        return if (editedUserInfo.isSuccessful) editedUserInfo.body() else null
+    }
+
 }

@@ -20,4 +20,13 @@ class UserInfoViewModel : ViewModel()  {
                 _userInfo.value = fetchedUserInfo!!
         }
     }
+
+    fun editTask(editUserInfo: UserInfo) {
+        viewModelScope.launch {
+            val editedUserInfo = repository.update(editUserInfo)
+            if (editedUserInfo != null) {
+                _userInfo.value = editedUserInfo!!
+            }
+        }
+    }
 }

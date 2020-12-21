@@ -3,8 +3,6 @@
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 k
 ;app/src/main/java/com/andrealouis/devmobile/MainActivity.kt,5\d\5df42a0c357dfba79c144b07c6a9889b10a52bb8
-l
-<app/src/main/java/com/andrealouis/devmobile/tasklist/Task.kt,d\6\d6e9f4dc564e8f8deeb0c18b604d8c84e2805ced
 w
 Gapp/src/main/java/com/andrealouis/devmobile/tasklist/TaskListAdapter.kt,e\3\e3aaff989583cc9d14105ad61c4d78b3e3cc2633
 x
@@ -17,8 +15,6 @@ r
 Bapp/src/main/java/com/andrealouis/devmobile/network/UserService.kt,0\f\0f50229741ca9b0d20784cb19500d6a23c787c54
 j
 :app/src/main/java/com/andrealouis/devmobile/network/API.kt,8\8\887bf79c7012bf787ce5f3dd36275af4f9c9072c
-o
-?app/src/main/java/com/andrealouis/devmobile/network/UserInfo.kt,c\e\ce9463ad4f2f91c1d6597d470f70ee66c24dd6b2
 <
 build.gradle,f\0\f07866736216be0ee2aba49e392191aeae700a35
 u
