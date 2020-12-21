@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,6 +24,12 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class UserInfoActivity : AppCompatActivity() {
+    companion object {
+        const val EDIT_USER_INFO_REQUEST_CODE = 600
+        const val USER_INFO_KEY = "newUserInfo"
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_info)
@@ -38,10 +45,26 @@ class UserInfoActivity : AppCompatActivity() {
         }
         val validateButton = findViewById<Button>(R.id.userInfo_valid_button)
         validateButton.setOnClickListener {
-            // use
-            pickInGallery.launch("image/*")
+            val lastName = findViewById<EditText>(R.id.editTextUserInfoLastName).text.toString()
+            val firstName = findViewById<EditText>(R.id.editTextUserInfoFirstName).text.toString()
+            val mail = findViewById<EditText>(R.id.editTextUserInfoMail).text.toString()
+
+
+
+            val newUserInfo = UserInfo(mail,firstName,lastName)
+
+            intent.putExtra(USER_INFO_KEY, newUserInfo)
+            setResult(RESULT_OK, intent)
+            finish()
         }
 
+
+        val userInfoPrevious = intent.getSerializableExtra(USER_INFO_KEY) as? UserInfo
+        if (userInfoPrevious != null){
+            findViewById<EditText>(R.id.editTextUserInfoLastName).setText(userInfoPrevious.lastName)
+            findViewById<EditText>(R.id.editTextUserInfoFirstName).setText(userInfoPrevious.firstName)
+            findViewById<EditText>(R.id.editTextUserInfoMail).setText(userInfoPrevious.email)
+        }
 
         val imageAvatar = findViewById<ImageView>(R.id.image_view)
         lifecycleScope.launch {

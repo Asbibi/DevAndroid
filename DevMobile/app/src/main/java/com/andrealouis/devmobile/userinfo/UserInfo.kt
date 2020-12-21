@@ -14,4 +14,4 @@ data class UserInfo(
         val lastName: String,
         @SerialName("avatar")
         val avatar: String = "https://goo.gl/gEgYUd"
-)
+) : java.io.Serializable

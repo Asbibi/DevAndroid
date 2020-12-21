@@ -21,7 +21,7 @@ class UserInfoViewModel : ViewModel()  {
         }
     }
 
-    fun editTask(editUserInfo: UserInfo) {
+    fun editUserInfo(editUserInfo: UserInfo) {
         viewModelScope.launch {
             val editedUserInfo = repository.update(editUserInfo)
             if (editedUserInfo != null) {

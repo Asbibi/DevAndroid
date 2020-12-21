@@ -19,7 +19,9 @@ import com.andrealouis.devmobile.task.Task
 import com.andrealouis.devmobile.task.TaskActivity
 import com.andrealouis.devmobile.task.TaskActivity.Companion.ADD_TASK_REQUEST_CODE
 import com.andrealouis.devmobile.task.TaskActivity.Companion.EDIT_TASK_REQUEST_CODE
+import com.andrealouis.devmobile.userinfo.UserInfo
 import com.andrealouis.devmobile.userinfo.UserInfoActivity
+import com.andrealouis.devmobile.userinfo.UserInfoActivity.Companion.EDIT_USER_INFO_REQUEST_CODE
 import com.andrealouis.devmobile.userinfo.UserInfoViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -79,7 +81,8 @@ class TaskListFragment : Fragment() {
         val userImageView = view?.findViewById<ImageView>(R.id.userInfo_imageView)
         userImageView.setOnClickListener {
             val intent = Intent(activity, UserInfoActivity::class.java)
-            startActivity(intent)
+            intent.putExtra(UserInfoActivity.USER_INFO_KEY, userInfoViewModel.userInfo.value)
+            startActivityForResult(intent,EDIT_USER_INFO_REQUEST_CODE)
         }
         /*tasksRepository.taskList.observe(viewLifecycleOwner, Observer {
             taskListAdapter.taskList.clear()
@@ -89,13 +92,20 @@ class TaskListFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
-        if (requestCode == ADD_TASK_REQUEST_CODE)
+        if (requestCode == ADD_TASK_REQUEST_CODE) {
+            val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
             viewModel.addTask(task)
             //lifecycleScope.launch { tasksRepository.addTask(task!!)}
-        else if (requestCode == EDIT_TASK_REQUEST_CODE)
+        }
+        else if (requestCode == EDIT_TASK_REQUEST_CODE) {
+            val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
             viewModel.editTask(task)
             //lifecycleScope.launch { tasksRepository.editTask(task!!)}
+        }
+        else if (requestCode == EDIT_USER_INFO_REQUEST_CODE){
+            val userInfo = data!!.getSerializableExtra(UserInfoActivity.USER_INFO_KEY) as UserInfo
+            userInfoViewModel.editUserInfo(userInfo)
+        }
         //taskList.add(taskList.size, task)
         //taskListAdapter.notifyItemInserted(taskList.size)
     }
