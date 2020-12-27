@@ -68,7 +68,7 @@ class UserInfoActivity : AppCompatActivity() {
 
         val imageAvatar = findViewById<ImageView>(R.id.image_view)
         lifecycleScope.launch {
-            val userInfo = Api.userService.getInfo().body()!!
+            val userInfo = Api.INSTANCE.USER_WEB_SERVICE.getInfo().body()!!
             imageAvatar.load(userInfo.avatar)
         }
     }
@@ -146,7 +146,7 @@ class UserInfoActivity : AppCompatActivity() {
 
     private fun handleImage(uri: Uri){
         lifecycleScope.launch {
-            Api.userService.updateAvatar(convert(uri))
+            Api.INSTANCE.USER_WEB_SERVICE.updateAvatar(convert(uri))
         }
     }
 

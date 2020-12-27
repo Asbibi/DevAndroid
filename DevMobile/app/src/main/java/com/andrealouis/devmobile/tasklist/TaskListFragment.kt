@@ -25,19 +25,35 @@ import com.andrealouis.devmobile.userinfo.UserInfoActivity.Companion.EDIT_USER_I
 import com.andrealouis.devmobile.userinfo.UserInfoViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+/*
+class EditTask : ActivityResultContract<Task, Task>() {
+    override fun createIntent(context: Context, inputTask : Task): Intent{}
+    override fun parseResult(resultCode: Int, intent: Intent?):Task {}
+}*/
+
 class TaskListFragment : Fragment() {
 
     //private val taskList = listOf("Task 1", "Task 2", "Task 3")
-    private val taskList = mutableListOf(
+    /*private val taskList = mutableListOf(
         Task(id = "id_1", title = "Task 1", description = "description 1"),
         Task(id = "id_2", title = "Task 2"),
         Task(id = "id_3", title = "Task 3")
-    )
+    )*/
     val taskListAdapter = TaskListAdapter()
     //private val tasksRepository = TasksRepository()
     private val viewModel : TaskListViewModel by viewModels()
     private val userInfoViewModel : UserInfoViewModel by viewModels()
 
+    /*
+    val editTaskCallbackForResult = registerForActivityResult(EditTask()) {
+        val task = EditTask.parseResult(0,)
+        viewModel.editTask(task)
+    }
+
+    val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { task:Task? ->
+        // Handle the returned Uri
+    }
+    */
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +76,7 @@ class TaskListFragment : Fragment() {
             taskList.remove(task)*/
             val intent = Intent(activity, TaskActivity::class.java)
             intent.putExtra(TaskActivity.TASK_KEY, task)
+            //editTaskCallbackForResult.launch(task)
             startActivityForResult(intent, EDIT_TASK_REQUEST_CODE)
         }
         taskListAdapter.onDeleteClickListener = { task ->

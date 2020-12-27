@@ -1,16 +1,30 @@
 package com.andrealouis.devmobile.network
 
+import android.content.Context
+import androidx.preference.PreferenceManager
+import com.andrealouis.devmobile.authentication.SHARED_PREF_TOKEN_KEY
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
-object Api {
+class Api(private val context: Context) {
 
-    // constantes qui serviront à faire les requêtes
-    private const val BASE_URL = "https://android-tasks-api.herokuapp.com/api/"
-    private const val TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyODgsImV4cCI6MTYzODg4NTE2N30.6wm9gOUqbMaamuCLCNGQ7_0JDxQZpXRcPp-oZMbftlo"
+    companion object {
+        // constantes qui serviront à faire les requêtes
+        private const val BASE_URL = "https://android-tasks-api.herokuapp.com/api/"
+        //private const val TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyODgsImV4cCI6MTYzODg4NTE2N30.6wm9gOUqbMaamuCLCNGQ7_0JDxQZpXRcPp-oZMbftlo"
+        lateinit var INSTANCE: Api
+    }
+
+    fun getToken(): String{
+        val token = PreferenceManager.getDefaultSharedPreferences(context).getString(SHARED_PREF_TOKEN_KEY, "")
+        if (token != null)
+            return token!!
+        else
+            return ""
+    }
 
     // on construit une instance de parseur de JSON:
     private val jsonSerializer = Json {
@@ -27,8 +41,9 @@ object Api {
         OkHttpClient.Builder()
                 .addInterceptor { chain ->
                     // intercepteur qui ajoute le `header` d'authentification avec votre token:
+
                     val newRequest = chain.request().newBuilder()
-                            .addHeader("Authorization", "Bearer $TOKEN")
+                            .addHeader("Authorization", "Bearer ${getToken()}")
                             .build()
                     chain.proceed(newRequest)
                 }
@@ -42,8 +57,8 @@ object Api {
             .addConverterFactory(converterFactory)
             .build()
 
-    val userService: UserService by lazy {
-        retrofit.create(UserService::class.java)
+    val USER_WEB_SERVICE: UserWebService by lazy {
+        retrofit.create(UserWebService::class.java)
     }
 
     val tasksWebService: TaskWebService by lazy {
