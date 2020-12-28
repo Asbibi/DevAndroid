@@ -15,8 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import coil.load
 import com.andrealouis.devmobile.BuildConfig
+import com.andrealouis.devmobile.MainActivity
 import com.andrealouis.devmobile.R
-import com.andrealouis.devmobile.authentication.AuthenticationActivity
 import com.andrealouis.devmobile.authentication.SHARED_PREF_TOKEN_KEY
 import com.andrealouis.devmobile.network.Api
 import kotlinx.coroutines.launch
@@ -61,7 +61,7 @@ class UserInfoActivity : AppCompatActivity() {
         val logoutButton = findViewById<ImageButton>(R.id.log_out_imageButton)
         logoutButton.setOnClickListener {
             PreferenceManager.getDefaultSharedPreferences(this).edit().remove(SHARED_PREF_TOKEN_KEY).apply()
-            val intent = Intent(this, AuthenticationActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 

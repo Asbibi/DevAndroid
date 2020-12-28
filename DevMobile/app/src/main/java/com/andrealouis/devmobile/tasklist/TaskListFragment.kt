@@ -1,6 +1,5 @@
 package com.andrealouis.devmobile.tasklist
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,52 +7,30 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.andrealouis.devmobile.R
 import com.andrealouis.devmobile.task.Task
-import com.andrealouis.devmobile.task.TaskActivity
-import com.andrealouis.devmobile.task.TaskActivity.Companion.ADD_TASK_REQUEST_CODE
-import com.andrealouis.devmobile.task.TaskActivity.Companion.EDIT_TASK_REQUEST_CODE
+import com.andrealouis.devmobile.task.TaskFragment
 import com.andrealouis.devmobile.userinfo.UserInfo
-import com.andrealouis.devmobile.userinfo.UserInfoActivity
-import com.andrealouis.devmobile.userinfo.UserInfoActivity.Companion.EDIT_USER_INFO_REQUEST_CODE
+import com.andrealouis.devmobile.userinfo.UserInfoFragment.Companion.USER_INFO_KEY
 import com.andrealouis.devmobile.userinfo.UserInfoViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-/*
-class EditTask : ActivityResultContract<Task, Task>() {
-    override fun createIntent(context: Context, inputTask : Task): Intent{}
-    override fun parseResult(resultCode: Int, intent: Intent?):Task {}
-}*/
 
 class TaskListFragment : Fragment() {
 
-    //private val taskList = listOf("Task 1", "Task 2", "Task 3")
-    /*private val taskList = mutableListOf(
-        Task(id = "id_1", title = "Task 1", description = "description 1"),
-        Task(id = "id_2", title = "Task 2"),
-        Task(id = "id_3", title = "Task 3")
-    )*/
+
     val taskListAdapter = TaskListAdapter()
-    //private val tasksRepository = TasksRepository()
-    private val viewModel : TaskListViewModel by viewModels()
-    private val userInfoViewModel : UserInfoViewModel by viewModels()
+    private val taskListViewModel : TaskListViewModel by navGraphViewModels(R.id.nav_graph)
+    private val userInfoViewModel : UserInfoViewModel by navGraphViewModels(R.id.nav_graph)
 
-    /*
-    val editTaskCallbackForResult = registerForActivityResult(EditTask()) {
-        val task = EditTask.parseResult(0,)
-        viewModel.editTask(task)
-    }
 
-    val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { task:Task? ->
-        // Handle the returned Uri
-    }
-    */
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +39,6 @@ class TaskListFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_task_list, container, false)
         return rootView
-        //return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,61 +47,56 @@ class TaskListFragment : Fragment() {
         // Pour une [RecyclerView] ayant l'id "recycler_view":
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.adapter = taskListAdapter
+
         taskListAdapter.onEditClickListener = { task ->
-            /*taskListAdapter.notifyItemRemoved(taskList.indexOf(task))
-            taskList.remove(task)*/
-            val intent = Intent(activity, TaskActivity::class.java)
-            intent.putExtra(TaskActivity.TASK_KEY, task)
-            //editTaskCallbackForResult.launch(task)
-            startActivityForResult(intent, EDIT_TASK_REQUEST_CODE)
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(TaskFragment.EDIT_TASK_KEY, task)
+            findNavController().navigate(R.id.action_taskListFragment_to_taskFragment)
         }
         taskListAdapter.onDeleteClickListener = { task ->
-            //taskListAdapter.notifyItemRemoved(taskList.indexOf(task))
-            //taskList.remove(task)
-            viewModel.deleteTask(task)
-            //lifecycleScope.launch { tasksRepository.deleteTask(task)}
+            taskListViewModel.deleteTask(task)
         }
-        recyclerView.adapter = taskListAdapter
-        val button = view.findViewById<FloatingActionButton>(R.id.button)
-        button.setOnClickListener{
-            val intent = Intent(activity, TaskActivity::class.java)
-            startActivityForResult(intent, ADD_TASK_REQUEST_CODE)
+        val addButton = view.findViewById<FloatingActionButton>(R.id.button)
+        addButton.setOnClickListener{
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(TaskFragment.EDIT_TASK_KEY, null)
+            findNavController().navigate(R.id.action_taskListFragment_to_taskFragment)
         }
-        viewModel.taskList.observe(viewLifecycleOwner, Observer { newList ->
+        taskListViewModel.taskList.observe(viewLifecycleOwner, Observer { newList ->
             taskListAdapter.taskList = newList.orEmpty()
-            //taskListAdapter.notifyDataSetChanged()
         })
         val userImageView = view?.findViewById<ImageView>(R.id.userInfo_imageView)
         userImageView.setOnClickListener {
-            val intent = Intent(activity, UserInfoActivity::class.java)
-            intent.putExtra(UserInfoActivity.USER_INFO_KEY, userInfoViewModel.userInfo.value)
-            startActivityForResult(intent,EDIT_USER_INFO_REQUEST_CODE)
+            findNavController().currentBackStackEntry?.savedStateHandle?.set(USER_INFO_KEY, userInfoViewModel.userInfo.value)
+            findNavController().navigate(R.id.action_taskListFragment_to_userInfoFragment)
         }
-        /*tasksRepository.taskList.observe(viewLifecycleOwner, Observer {
-            taskListAdapter.taskList.clear()
-            taskListAdapter.taskList.addAll(it)
-            taskListAdapter.notifyDataSetChanged()
-        })*/
+
+        findNavController().previousBackStackEntry?.savedStateHandle?.getLiveData<Task>(TaskFragment.ADD_TASK_KEY)?.observe(viewLifecycleOwner) {task ->
+            taskListViewModel.addTask(task)
+        }
+        findNavController().previousBackStackEntry?.savedStateHandle?.getLiveData<Task>(TaskFragment.EDIT_TASK_KEY)?.observe(viewLifecycleOwner) { editedtask ->
+            if (editedtask != null)
+                taskListViewModel.editTask(editedtask)
+        }
+        findNavController().previousBackStackEntry?.savedStateHandle?.getLiveData<UserInfo>(USER_INFO_KEY)?.observe(viewLifecycleOwner) { userInfo ->
+            userInfoViewModel.editUserInfo(userInfo)
+        }
     }
 
+    /*
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == ADD_TASK_REQUEST_CODE) {
             val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
-            viewModel.addTask(task)
-            //lifecycleScope.launch { tasksRepository.addTask(task!!)}
+            taskListViewModel.addTask(task)
         }
         else if (requestCode == EDIT_TASK_REQUEST_CODE) {
             val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
-            viewModel.editTask(task)
-            //lifecycleScope.launch { tasksRepository.editTask(task!!)}
+            taskListViewModel.editTask(task)
         }
         else if (requestCode == EDIT_USER_INFO_REQUEST_CODE){
             val userInfo = data!!.getSerializableExtra(UserInfoActivity.USER_INFO_KEY) as UserInfo
             userInfoViewModel.editUserInfo(userInfo)
         }
-        //taskList.add(taskList.size, task)
-        //taskListAdapter.notifyItemInserted(taskList.size)
-    }
+    }*/
 
     override fun onResume(){
         super.onResume()
@@ -139,7 +110,7 @@ class TaskListFragment : Fragment() {
                 transformations(CircleCropTransformation())
             }
         })
-        viewModel.loadTasks()
+        taskListViewModel.loadTasks()
     }
 }
 

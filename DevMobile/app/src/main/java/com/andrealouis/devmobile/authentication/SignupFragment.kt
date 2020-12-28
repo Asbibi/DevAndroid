@@ -1,6 +1,5 @@
 package com.andrealouis.devmobile.authentication
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.andrealouis.devmobile.MainActivity
 import com.andrealouis.devmobile.R
 import com.andrealouis.devmobile.network.Api
 import kotlinx.coroutines.launch
@@ -46,12 +45,8 @@ class SignupFragment : Fragment() {
                             passwordConfirmationText?.text!!.toString()))
 
                     if (connectionToken.isSuccessful){
-                        /*PreferenceManager.getDefaultSharedPreferences(context).edit {
-                            putString(SHARED_PREF_TOKEN_KEY, connectionToken?.body().token)
-                        }*/
                         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(SHARED_PREF_TOKEN_KEY, connectionToken?.body()!!.token).apply()
-                        val intent = Intent(activity, MainActivity::class.java)
-                        startActivity(intent)
+                        findNavController().navigate(R.id.action_signupFragment_to_taskListFragment)
                     }
                     else{
                         Toast.makeText(context, "Inscription refusée", Toast.LENGTH_LONG).show()

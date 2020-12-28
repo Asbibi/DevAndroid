@@ -1,5 +1,6 @@
 package com.andrealouis.devmobile.tasklist
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,14 +24,27 @@ class TaskListViewModel : ViewModel() {
         }
     }
     fun deleteTask(task: Task) {
+        Log.d("DELETE", "method deleteTask du viewModel appelée")
         viewModelScope.launch {
-            val deletedTask = repository.deleteTask(task)
-            if (deletedTask != null) {
+            val deletedTaskSuccessful = repository.deleteTask(task)
+            if (deletedTaskSuccessful){
+                Log.d("DELETE", "Delete reussi !")
                 val editableList = _taskList.value.orEmpty().toMutableList()
                 val position = editableList.indexOfFirst { task.id == it.id }
                 editableList.removeAt(position)
                 _taskList.value = editableList
             }
+            /*val deletedTask = repository.deleteTask(task)
+            if (deletedTask != null) {
+                Log.d("DELETE", "rentré dans le if de deleteTask du viewModel")
+                val editableList = _taskList.value.orEmpty().toMutableList()
+                val position = editableList.indexOfFirst { task.id == it.id }
+                editableList.removeAt(position)
+                _taskList.value = editableList
+            }
+            else{
+                Log.d("DELETE", "la réponse est null(e)")
+            }*/
         }
     }
     fun addTask(task: Task) {

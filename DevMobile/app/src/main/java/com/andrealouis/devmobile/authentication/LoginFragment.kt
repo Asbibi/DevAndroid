@@ -1,6 +1,5 @@
 package com.andrealouis.devmobile.authentication
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +9,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.andrealouis.devmobile.MainActivity
 import com.andrealouis.devmobile.R
 import com.andrealouis.devmobile.network.Api
 import kotlinx.coroutines.launch
@@ -35,15 +34,10 @@ class LoginFragment : Fragment() {
             val passwordText = view?.findViewById<TextView>(R.id.password_login_editText)
             if ((emailText?.text?.toString() != "") && (passwordText?.text?.toString() != "")){
                 lifecycleScope.launch {
-                    //var form = LoginForm(emailText?.text!!.toString(), passwordText?.text!!.toString())
                     val connectionToken = Api.INSTANCE.USER_WEB_SERVICE.login(LoginForm(emailText?.text!!.toString(), passwordText?.text!!.toString()))
                     if (connectionToken.isSuccessful){
-                        /*PreferenceManager.getDefaultSharedPreferences(context).edit {
-                            putString(SHARED_PREF_TOKEN_KEY, connectionToken?.body().token)
-                        }*/
                         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(SHARED_PREF_TOKEN_KEY, connectionToken?.body()!!.token).apply()
-                        val intent = Intent(activity, MainActivity::class.java)
-                        startActivity(intent)
+                        findNavController().navigate(R.id.action_loginFragment_to_taskListFragment)
                     }
                     else{
                         Toast.makeText(context, "Mauvais identifiants", Toast.LENGTH_LONG).show()
