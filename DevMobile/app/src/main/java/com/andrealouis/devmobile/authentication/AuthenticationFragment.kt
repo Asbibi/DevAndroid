@@ -1,5 +1,6 @@
 package com.andrealouis.devmobile.authentication
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.andrealouis.devmobile.MainActivity
 import com.andrealouis.devmobile.R
+import com.andrealouis.devmobile.network.Api
 
 
 class AuthenticationFragment : Fragment() {
@@ -33,6 +36,11 @@ class AuthenticationFragment : Fragment() {
         val signupButton = view?.findViewById<Button>(R.id.sign_up_authentication_button)
         signupButton.setOnClickListener {
             findNavController().navigate(R.id.action_authenticationFragment_to_signupFragment)
+        }
+
+        if (Api.INSTANCE.getToken() != ""){
+            val intent = Intent(activity, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 }

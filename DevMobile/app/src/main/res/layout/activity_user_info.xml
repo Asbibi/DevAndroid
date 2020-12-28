@@ -18,11 +18,11 @@
         android:id="@+id/editTextUserInfoLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="106dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Nom"
+        android:hint="Nom"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_view" />
@@ -35,7 +35,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Prenom"
+        android:hint="Prenom"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextUserInfoLastName" />
@@ -48,7 +48,7 @@
         android:layout_marginTop="10dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Mail"
+        android:hint="Mail"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextUserInfoFirstName" />
@@ -78,5 +78,22 @@
         android:text="Valider et retour"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp" />
+
+    <ImageButton
+        android:id="@+id/log_out_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/btn_dialog"
+        app:layout_constraintBottom_toBottomOf="@+id/log_out_textView"
+        app:layout_constraintEnd_toEndOf="@+id/editTextUserInfoMail"/>
+
+    <TextView
+        android:id="@+id/log_out_textView"
+        android:layout_width="95dp"
+        android:layout_height="33dp"
+        android:text="Deconnexion"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUserInfoMail"
+        app:layout_constraintStart_toStartOf="@+id/editTextUserInfoMail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

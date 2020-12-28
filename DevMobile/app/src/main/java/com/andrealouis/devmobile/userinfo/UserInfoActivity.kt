@@ -2,21 +2,22 @@ package com.andrealouis.devmobile.userinfo
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import coil.load
 import com.andrealouis.devmobile.BuildConfig
 import com.andrealouis.devmobile.R
+import com.andrealouis.devmobile.authentication.AuthenticationActivity
+import com.andrealouis.devmobile.authentication.SHARED_PREF_TOKEN_KEY
 import com.andrealouis.devmobile.network.Api
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -56,6 +57,12 @@ class UserInfoActivity : AppCompatActivity() {
             intent.putExtra(USER_INFO_KEY, newUserInfo)
             setResult(RESULT_OK, intent)
             finish()
+        }
+        val logoutButton = findViewById<ImageButton>(R.id.log_out_imageButton)
+        logoutButton.setOnClickListener {
+            PreferenceManager.getDefaultSharedPreferences(this).edit().remove(SHARED_PREF_TOKEN_KEY).apply()
+            val intent = Intent(this, AuthenticationActivity::class.java)
+            startActivity(intent)
         }
 
 
