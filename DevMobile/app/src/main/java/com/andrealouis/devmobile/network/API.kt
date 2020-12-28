@@ -2,7 +2,7 @@ package com.andrealouis.devmobile.network
 
 import android.content.Context
 import androidx.preference.PreferenceManager
-import com.andrealouis.devmobile.authentication.SHARED_PREF_TOKEN_KEY
+import com.andrealouis.devmobile.main.SHARED_PREF_TOKEN_KEY
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -19,7 +19,8 @@ class Api(private val context: Context) {
     }
 
     fun getToken(): String{
-        val token = PreferenceManager.getDefaultSharedPreferences(context).getString(SHARED_PREF_TOKEN_KEY, "")
+        val token = PreferenceManager.getDefaultSharedPreferences(context).getString(
+            SHARED_PREF_TOKEN_KEY, "")
         if (token != null)
             return token!!
         else

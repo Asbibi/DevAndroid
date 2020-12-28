@@ -19,7 +19,7 @@ import androidx.preference.PreferenceManager
 import coil.load
 import com.andrealouis.devmobile.BuildConfig
 import com.andrealouis.devmobile.R
-import com.andrealouis.devmobile.authentication.SHARED_PREF_TOKEN_KEY
+import com.andrealouis.devmobile.main.SHARED_PREF_TOKEN_KEY
 import com.andrealouis.devmobile.network.Api
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -29,7 +29,6 @@ import java.io.File
 
 class UserInfoFragment : Fragment() {
     companion object {
-        const val EDIT_USER_INFO_REQUEST_CODE = 600
         const val USER_INFO_KEY = "newUserInfo"
     }
 
@@ -62,21 +61,18 @@ class UserInfoFragment : Fragment() {
             val newUserInfo = UserInfo(mail,firstName,lastName)
             findNavController().currentBackStackEntry?.savedStateHandle?.set(USER_INFO_KEY, newUserInfo)
             findNavController().navigate(R.id.action_userInfoFragment_to_taskListFragment)
-
-            /*intent.putExtra(UserInfoActivity.USER_INFO_KEY, newUserInfo)
-            setResult(AppCompatActivity.RESULT_OK, intent)
-            finish()*/
         }
         val logoutButton = view?.findViewById<ImageButton>(R.id.log_out_imageButton)
         logoutButton.setOnClickListener {
-            PreferenceManager.getDefaultSharedPreferences(context).edit().remove(SHARED_PREF_TOKEN_KEY).apply()
+            PreferenceManager.getDefaultSharedPreferences(context).edit().remove(
+                SHARED_PREF_TOKEN_KEY
+            ).apply()
             findNavController().navigate(R.id.action_userInfoFragment_to_authenticationFragment)
         }
 
 
 
         val userInfoPrevious = findNavController().previousBackStackEntry?.savedStateHandle?.get(USER_INFO_KEY) as? UserInfo
-        //val userInfoPrevious = intent.getSerializableExtra(UserInfoActivity.USER_INFO_KEY) as? UserInfo
         if (userInfoPrevious != null){
             view?.findViewById<EditText>(R.id.editTextUserInfoLastName).setText(userInfoPrevious.lastName)
             view?.findViewById<EditText>(R.id.editTextUserInfoFirstName).setText(userInfoPrevious.firstName)

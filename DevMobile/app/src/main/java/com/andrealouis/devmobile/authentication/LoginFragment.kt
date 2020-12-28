@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.andrealouis.devmobile.R
+import com.andrealouis.devmobile.main.SHARED_PREF_TOKEN_KEY
 import com.andrealouis.devmobile.network.Api
 import kotlinx.coroutines.launch
 
@@ -36,7 +37,8 @@ class LoginFragment : Fragment() {
                 lifecycleScope.launch {
                     val connectionToken = Api.INSTANCE.USER_WEB_SERVICE.login(LoginForm(emailText?.text!!.toString(), passwordText?.text!!.toString()))
                     if (connectionToken.isSuccessful){
-                        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(SHARED_PREF_TOKEN_KEY, connectionToken?.body()!!.token).apply()
+                        PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
+                            SHARED_PREF_TOKEN_KEY, connectionToken?.body()!!.token).apply()
                         findNavController().navigate(R.id.action_loginFragment_to_taskListFragment)
                     }
                     else{

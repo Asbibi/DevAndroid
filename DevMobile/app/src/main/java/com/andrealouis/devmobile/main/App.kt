@@ -1,4 +1,4 @@
-package com.andrealouis.devmobile
+package com.andrealouis.devmobile.main
 
 import android.app.Application
 import com.andrealouis.devmobile.network.Api

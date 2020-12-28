@@ -15,8 +15,6 @@ import java.util.*
 
 class TaskFragment : Fragment() {
     companion object {
-        const val EDIT_TASK_REQUEST_CODE = 667
-        const val ADD_TASK_REQUEST_CODE = 666
         const val ADD_TASK_KEY = "newTask"
         const val EDIT_TASK_KEY = "editedTask"
     }
