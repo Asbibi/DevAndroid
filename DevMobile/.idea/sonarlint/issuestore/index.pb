@@ -43,9 +43,11 @@ w
 Gapp/src/main/java/com/andrealouis/devmobile/authentication/LoginForm.kt,a\c\acfd41c5aecaee9bc75c13a1ab91fd4a7e20037a
 u
 Eapp/src/main/java/com/andrealouis/devmobile/network/UserWebService.kt,8\1\81358ba702bee93a3475508d01c57b72737cd8f0
-{
-Kapp/src/main/java/com/andrealouis/devmobile/authentication/LoginResponse.kt,9\e\9e97b01278056df5c4d305d4850564883eb79ef3
 w
 Gapp/src/main/java/com/andrealouis/devmobile/authentication/Constants.kt,c\9\c919d313a6e9fdde213d402f686fbd78952ee9f4
 b
 2app/src/main/java/com/andrealouis/devmobile/App.kt,f\f\ffaaa7d95d01924bde0a5711fa6f5abec9a04de5
+x
+Happ/src/main/java/com/andrealouis/devmobile/authentication/SignupForm.kt,3\e\3ed07074596ff9514663918481f90f82958f5d3f
+„
+Tapp/src/main/java/com/andrealouis/devmobile/authentication/AuthenticationResponse.kt,7\9\79f6a4c35bc812c25a3d9fbcf8389ba51824a195

@@ -33,7 +33,7 @@ class LoginFragment : Fragment() {
         loginButton.setOnClickListener {
             val emailText = view?.findViewById<TextView>(R.id.email_login_editText)
             val passwordText = view?.findViewById<TextView>(R.id.password_login_editText)
-            if ((emailText?.text?.toString() != null) && (passwordText?.text?.toString() != null)){     // TODO : le if est toujours évalué à true.....
+            if ((emailText?.text?.toString() != "") && (passwordText?.text?.toString() != "")){
                 lifecycleScope.launch {
                     //var form = LoginForm(emailText?.text!!.toString(), passwordText?.text!!.toString())
                     val connectionToken = Api.INSTANCE.USER_WEB_SERVICE.login(LoginForm(emailText?.text!!.toString(), passwordText?.text!!.toString()))
