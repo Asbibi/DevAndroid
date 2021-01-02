@@ -39,7 +39,7 @@ class LoginFragment : Fragment() {
                     if (connectionToken.isSuccessful){
                         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
                             SHARED_PREF_TOKEN_KEY, connectionToken?.body()!!.token).apply()
-                        findNavController().navigate(R.id.action_loginFragment_to_taskListFragment)
+                        findNavController().navigate(R.id.action_loginFragment_to_taskListPagingFragment)
                     }
                     else{
                         Toast.makeText(context, "Mauvais identifiants", Toast.LENGTH_LONG).show()

@@ -37,7 +37,7 @@ class AuthenticationFragment : Fragment() {
         }
 
         if (Api.INSTANCE.getToken() != ""){
-            findNavController().navigate(R.id.action_authenticationFragment_to_taskListFragment)
+            findNavController().navigate(R.id.action_authenticationFragment_to_taskListPagingFragment)
         }
     }
 }

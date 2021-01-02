@@ -16,7 +16,7 @@ class TasksRepository {
 
 
     suspend fun refresh(): List<Task>? {
-        val response = tasksWebService.getTasks()
+        val response = tasksWebService.getTasks(0)
         return if (response.isSuccessful) response.body() else null
     }
 

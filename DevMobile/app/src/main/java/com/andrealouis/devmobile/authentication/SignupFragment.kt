@@ -48,7 +48,7 @@ class SignupFragment : Fragment() {
                     if (connectionToken.isSuccessful){
                         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
                             SHARED_PREF_TOKEN_KEY, connectionToken?.body()!!.token).apply()
-                        findNavController().navigate(R.id.action_signupFragment_to_taskListFragment)
+                        findNavController().navigate(R.id.action_signupFragment_to_taskListPagingFragment)
                     }
                     else{
                         Toast.makeText(context, "Inscription refusée", Toast.LENGTH_LONG).show()

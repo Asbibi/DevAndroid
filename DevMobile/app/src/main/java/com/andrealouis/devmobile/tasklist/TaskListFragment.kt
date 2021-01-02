@@ -82,21 +82,6 @@ class TaskListFragment : Fragment() {
         }
     }
 
-    /*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == ADD_TASK_REQUEST_CODE) {
-            val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
-            taskListViewModel.addTask(task)
-        }
-        else if (requestCode == EDIT_TASK_REQUEST_CODE) {
-            val task = data!!.getSerializableExtra(TaskActivity.TASK_KEY) as Task
-            taskListViewModel.editTask(task)
-        }
-        else if (requestCode == EDIT_USER_INFO_REQUEST_CODE){
-            val userInfo = data!!.getSerializableExtra(UserInfoActivity.USER_INFO_KEY) as UserInfo
-            userInfoViewModel.editUserInfo(userInfo)
-        }
-    }*/
 
     override fun onResume(){
         super.onResume()

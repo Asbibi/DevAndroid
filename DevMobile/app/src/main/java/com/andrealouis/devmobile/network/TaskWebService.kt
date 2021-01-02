@@ -5,8 +5,8 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface TaskWebService {
-    @GET("tasks")
-    suspend fun getTasks(): Response<List<Task>>
+    @GET("tasks") //      get/tasks/page/per_page
+    suspend fun getTasks(@Query("page") page: Int?): Response<List<Task>>
 
     @DELETE("tasks/{id}")
     suspend fun deleteTask(@Path("id") id: String?): Response<String>

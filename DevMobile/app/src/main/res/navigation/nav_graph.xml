@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_authenticationFragment_to_taskListFragment"
             app:destination="@id/taskListFragment" />
+        <action
+            android:id="@+id/action_authenticationFragment_to_taskListPagingFragment"
+            app:destination="@id/taskListPagingFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -28,6 +31,9 @@
         <action
             android:id="@+id/action_loginFragment_to_taskListFragment"
             app:destination="@id/taskListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_taskListPagingFragment"
+            app:destination="@id/taskListPagingFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
@@ -37,6 +43,9 @@
         <action
             android:id="@+id/action_signupFragment_to_taskListFragment"
             app:destination="@id/taskListFragment" />
+        <action
+            android:id="@+id/action_signupFragment_to_taskListPagingFragment"
+            app:destination="@id/taskListPagingFragment" />
     </fragment>
     <fragment
         android:id="@+id/taskListFragment"
@@ -57,6 +66,9 @@
         <action
             android:id="@+id/action_taskFragment_to_taskListFragment"
             app:destination="@id/taskListFragment" />
+        <action
+            android:id="@+id/action_taskFragment_to_taskListPagingFragment"
+            app:destination="@id/taskListPagingFragment" />
     </fragment>
     <fragment
         android:id="@+id/userInfoFragment"
@@ -69,5 +81,19 @@
         <action
             android:id="@+id/action_userInfoFragment_to_authenticationFragment"
             app:destination="@id/authenticationFragment" />
+        <action
+            android:id="@+id/action_userInfoFragment_to_taskListPagingFragment"
+            app:destination="@id/taskListPagingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskListPagingFragment"
+        android:name="com.andrealouis.devmobile.paging.TaskListPagingFragment"
+        android:label="TaskListPagingFragment" >
+        <action
+            android:id="@+id/action_taskListPagingFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
+        <action
+            android:id="@+id/action_taskListPagingFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment" />
     </fragment>
 </navigation>
