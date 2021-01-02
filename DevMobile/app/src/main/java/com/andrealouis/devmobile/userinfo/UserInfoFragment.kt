@@ -60,7 +60,7 @@ class UserInfoFragment : Fragment() {
 
             val newUserInfo = UserInfo(mail,firstName,lastName)
             findNavController().currentBackStackEntry?.savedStateHandle?.set(USER_INFO_KEY, newUserInfo)
-            findNavController().navigate(R.id.action_userInfoFragment_to_taskListFragment)
+            findNavController().navigate(R.id.action_userInfoFragment_to_taskListPagingFragment)
         }
         val logoutButton = view?.findViewById<ImageButton>(R.id.log_out_imageButton)
         logoutButton.setOnClickListener {

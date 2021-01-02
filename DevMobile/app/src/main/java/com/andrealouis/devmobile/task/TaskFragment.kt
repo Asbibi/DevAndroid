@@ -53,7 +53,7 @@ class TaskFragment : Fragment() {
                 else
                     findNavController().currentBackStackEntry?.savedStateHandle?.set(ADD_TASK_KEY, newTask)
 
-                findNavController().navigate(R.id.action_taskFragment_to_taskListFragment)
+                findNavController().navigate(R.id.action_taskFragment_to_taskListPagingFragment)
             }
             else{
                 Toast.makeText(context, "Nom vide", Toast.LENGTH_LONG).show()

@@ -53,3 +53,13 @@ n
 >app/src/test/java/com/andrealouis/devmobile/ExampleUnitTest.kt,a\1\a14f320243cfffe3358a4e0f34101d64e0060668
 }
 Mapp/src/androidTest/java/com/andrealouis/devmobile/ExampleInstrumentedTest.kt,2\2\22881ee2c9e26bb5b723dc2a26ef3be418278dea
+~
+Napp/src/main/java/com/andrealouis/devmobile/paging/TaskListPagingComparator.kt,f\e\fe85d7e3bcb1840c5710dc3d8c489b46f9db7d4c
+{
+Kapp/src/main/java/com/andrealouis/devmobile/paging/TaskListPagingAdapter.kt,7\4\744fe58ba6d7c2c7783679f74f4e863d8016eb3b
+|
+Lapp/src/main/java/com/andrealouis/devmobile/paging/TaskListPagingFragment.kt,1\0\1075db2c6030adecf8556a374e9c3ce3d80b203b
+z
+Japp/src/main/java/com/andrealouis/devmobile/paging/TaskListPagingSource.kt,b\7\b79348b46279cbfa0ffcb8a444715f8a0192ec06
+}
+Mapp/src/main/java/com/andrealouis/devmobile/paging/TaskListPagingViewModel.kt,f\2\f22f5eb3a1a77159abc53c08936a8b23e393f1fe

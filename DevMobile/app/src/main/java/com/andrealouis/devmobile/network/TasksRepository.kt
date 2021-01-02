@@ -47,6 +47,4 @@ class TasksRepository {
         val editedTask = tasksWebService.updateTask(task)
         return if (editedTask.isSuccessful) editedTask.body() else null
     }
-
-
 }
