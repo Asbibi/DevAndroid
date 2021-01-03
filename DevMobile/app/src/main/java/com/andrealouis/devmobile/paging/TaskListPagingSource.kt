@@ -22,9 +22,6 @@ class TaskListPagingSource() : PagingSource<Int, Task>() {
         } catch (e: Exception) {
             Log.d("PAGING :","Error loading page...")
             return LoadResult.Error(e)
-        } catch (e: NullPointerException) {
-            Log.d("PAGING :","Error loading page... NullPointer")
-            return LoadResult.Error(e)
         }
     }
 

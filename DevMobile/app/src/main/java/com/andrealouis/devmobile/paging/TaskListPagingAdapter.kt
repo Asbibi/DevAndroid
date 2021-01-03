@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andrealouis.devmobile.R
 import com.andrealouis.devmobile.task.Task
 
-class TaskListPagingAdapter (diffCallback: TaskListPagingComparator) : PagingDataAdapter<Task, TaskListPagingAdapter.TaskPagingViewHolder>(diffCallback) {
+class TaskListPagingAdapter (diffCallback: TaskListPagingComparator) :
+        PagingDataAdapter<Task, TaskListPagingAdapter.TaskPagingViewHolder>(diffCallback) {
 
     var onEditClickListener: ((Task) -> Unit)? = null
     var onDeleteClickListener: ((Task) -> Unit)? = null
@@ -32,7 +33,8 @@ class TaskListPagingAdapter (diffCallback: TaskListPagingComparator) : PagingDat
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListPagingAdapter.TaskPagingViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
+            TaskListPagingAdapter.TaskPagingViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
         return TaskPagingViewHolder(itemView)
     }
@@ -40,8 +42,6 @@ class TaskListPagingAdapter (diffCallback: TaskListPagingComparator) : PagingDat
 
     override fun onBindViewHolder(holder: TaskListPagingAdapter.TaskPagingViewHolder, position: Int) {
         val item = getItem(position)!!
-        // Note that item may be null. ViewHolder must support binding a
-        // null item as a placeholder.
         holder.bind(item)
     }
 }

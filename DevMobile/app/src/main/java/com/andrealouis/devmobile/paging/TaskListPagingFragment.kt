@@ -28,21 +28,16 @@ import kotlinx.coroutines.launch
 
 
 class TaskListPagingFragment : Fragment() {
-
     val pagingAdapter = TaskListPagingAdapter(TaskListPagingComparator)
     val taskListViewModel by viewModels<TaskListPagingViewModel>()
     private val userInfoViewModel : UserInfoViewModel by navGraphViewModels(R.id.nav_graph)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_task_list_paging, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-        val pagingAdapter = TaskListPagingAdapter(TaskListPagingComparator)
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = pagingAdapter
@@ -67,11 +62,6 @@ class TaskListPagingFragment : Fragment() {
             findNavController().currentBackStackEntry?.savedStateHandle?.set(TaskFragment.EDIT_TASK_KEY, null)
             findNavController().navigate(R.id.action_taskListPagingFragment_to_taskFragment)
         }
-        /*taskListViewModel.taskList.observe(viewLifecycleOwner, Observer { newList ->
-            pagingAdapter.taskList = newList.orEmpty()
-        })*/
-
-
         val userImageView = view?.findViewById<ImageView>(R.id.userInfo_imageView)
         userImageView.setOnClickListener {
             findNavController().currentBackStackEntry?.savedStateHandle?.set(UserInfoFragment.USER_INFO_KEY, userInfoViewModel.userInfo.value)
@@ -85,13 +75,10 @@ class TaskListPagingFragment : Fragment() {
             if (editedtask != null)
                 taskListViewModel.editTask(editedtask)
         }
-        findNavController().previousBackStackEntry?.savedStateHandle?.getLiveData<UserInfo>(
-            UserInfoFragment.USER_INFO_KEY
-        )?.observe(viewLifecycleOwner) { userInfo ->
+        findNavController().previousBackStackEntry?.savedStateHandle?.getLiveData<UserInfo>(UserInfoFragment.USER_INFO_KEY)?.observe(viewLifecycleOwner) { userInfo ->
             userInfoViewModel.editUserInfo(userInfo)
         }
     }
-
     override fun onResume(){
         super.onResume()
         userInfoViewModel.loadUserInfo()

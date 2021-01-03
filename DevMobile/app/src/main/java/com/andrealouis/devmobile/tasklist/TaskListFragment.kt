@@ -24,23 +24,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class TaskListFragment : Fragment() {
-
-
     val taskListAdapter = TaskListAdapter()
     private val taskListViewModel : TaskListViewModel by navGraphViewModels(R.id.nav_graph)
     private val userInfoViewModel : UserInfoViewModel by navGraphViewModels(R.id.nav_graph)
 
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_task_list, container, false)
         return rootView
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -61,15 +52,16 @@ class TaskListFragment : Fragment() {
             findNavController().currentBackStackEntry?.savedStateHandle?.set(TaskFragment.EDIT_TASK_KEY, null)
             findNavController().navigate(R.id.action_taskListFragment_to_taskFragment)
         }
+
         taskListViewModel.taskList.observe(viewLifecycleOwner, Observer { newList ->
             taskListAdapter.taskList = newList.orEmpty()
         })
+
         val userImageView = view?.findViewById<ImageView>(R.id.userInfo_imageView)
         userImageView.setOnClickListener {
             findNavController().currentBackStackEntry?.savedStateHandle?.set(USER_INFO_KEY, userInfoViewModel.userInfo.value)
             findNavController().navigate(R.id.action_taskListFragment_to_userInfoFragment)
         }
-
         findNavController().previousBackStackEntry?.savedStateHandle?.getLiveData<Task>(TaskFragment.ADD_TASK_KEY)?.observe(viewLifecycleOwner) {task ->
             taskListViewModel.addTask(task)
         }
