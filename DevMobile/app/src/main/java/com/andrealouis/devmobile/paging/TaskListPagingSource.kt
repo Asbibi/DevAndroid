@@ -4,8 +4,6 @@ import android.util.Log
 import androidx.paging.PagingSource
 import com.andrealouis.devmobile.network.Api
 import com.andrealouis.devmobile.task.Task
-import retrofit2.HttpException
-import java.io.IOException
 
 class TaskListPagingSource() : PagingSource<Int, Task>() {
 
@@ -21,11 +19,11 @@ class TaskListPagingSource() : PagingSource<Int, Task>() {
                     prevKey = null, // Only paging forward.
                     nextKey = nextPageNumber + 1//response.nextPageNumber
             )
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             Log.d("PAGING :","Error loading page...")
             return LoadResult.Error(e)
-        } catch (e: HttpException) {
-            Log.d("PAGING :","Error loading page...")
+        } catch (e: NullPointerException) {
+            Log.d("PAGING :","Error loading page... NullPointer")
             return LoadResult.Error(e)
         }
     }

@@ -11,8 +11,9 @@ import kotlinx.coroutines.launch
 
 class TaskListPagingViewModel : ViewModel()  {
 
-    val repository = TaskListPagingSource()
-    var flow = Pager(PagingConfig(pageSize = 20)) { repository }.flow.cachedIn(viewModelScope)
+    var repository = TaskListPagingSource()
+    //val flow = Pager(PagingConfig(pageSize = 20)) { repository }.flow.cachedIn(viewModelScope)
+    val flow = Pager(PagingConfig(pageSize = 20)) { TaskListPagingSource().also { repository = it} }.flow.cachedIn(viewModelScope)
 
     //private val repository = TasksRepository()
     //private val _taskList = MutableLiveData<List<Task>>()
@@ -43,7 +44,9 @@ class TaskListPagingViewModel : ViewModel()  {
                 //_taskList.value = editableList
 
                  */
-                flow = Pager(PagingConfig(pageSize = 20)) { repository }.flow.cachedIn(viewModelScope)
+                //flow = Pager(PagingConfig(pageSize = 20)) { repository }.flow.cachedIn(viewModelScope)
+                repository.invalidate()
+                //repository = TaskListPagingSource()
             }
         }
     }
@@ -54,21 +57,21 @@ class TaskListPagingViewModel : ViewModel()  {
                 //val editableList = _taskList.value.orEmpty().toMutableList()
                 //editableList.add(createdTask)
                 //_taskList.value = editableList
-                flow = Pager(PagingConfig(pageSize = 20)) { repository }.flow.cachedIn(viewModelScope)
+                repository.invalidate()
             }
         }
     }
     fun editTask(task: Task) {
-        /*
         viewModelScope.launch {
             val editedTask = repository.updateTask(task)
             if (editedTask != null) {
-                val editableList = _taskList.value.orEmpty().toMutableList()
-                val position = editableList.indexOfFirst { task.id == it.id }
-                editableList[position] = editedTask
-                _taskList.value = editableList
+                //val editableList = _taskList.value.orEmpty().toMutableList()
+                //val position = editableList.indexOfFirst { task.id == it.id }
+                //editableList[position] = editedTask
+                //_taskList.value = editableList
+                repository.invalidate()
             }
-        }*/
+        }
     }
 
 }
